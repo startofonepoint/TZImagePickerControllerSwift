@@ -159,10 +159,13 @@ public class TZImageManager: NSObject {
                 continue
             }
 
-            let fetchResult = object as! PHFetchResult<PHAssetCollection>
+            let fetchResult = object as! PHFetchResult<PHCollection>
 
             fetchResult.enumerateObjects({ (collection, index, stop) in
                 print(collection);
+                guard let collection = collection as? PHAssetCollection else {
+                    return
+                }
                 let tz_fetchResult = PHAsset.fetchAssets(in: collection , options: option)
 
                 if tz_fetchResult.count < 1 {
